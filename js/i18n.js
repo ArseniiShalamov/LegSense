@@ -112,7 +112,9 @@
     document.documentElement.dir = language === "he" ? "rtl" : "ltr";
     select.value = language;
     visit(document.body);
-    document.title = translate("LegSense — A new dimension");
+    document.title = translate(
+      document.documentElement.dataset.pageTitle || "LegSense — A new dimension",
+    );
     observer.observe(document.body, {
       subtree: true,
       childList: true,
