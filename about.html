@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en" data-page-title="LegSense — About the project">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LegSense — About the project</title>
+    <meta
+      name="description"
+      content="Discover the purpose, research and technology behind LegSense, a three-photo 3D leg analysis project."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/about.css" />
+  </head>
+  <body>
+    <div class="page about-page">
+      <header>
+        <a class="logo" href="index.html"
+          ><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>LegSense</a
+        >
+        <nav>
+          <a href="index.html">Home</a><a href="#journey">The process</a
+          ><a href="#research">Our technology</a>
+        </nav>
+        <div class="actions">
+          <select class="language" id="lang" aria-label="Switch language" dir="ltr">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="he">עברית</option></select
+          ><a class="pill" href="index.html#scan">Try the demo <span>→</span></a>
+        </div>
+      </header>
+      <main class="about-main">
+        <section class="about-intro">
+          <div>
+            <div class="eyebrow">THE IDEA BEHIND LEGSENSE</div>
+            <h1>A clearer view.<br /><em>A better understanding.</em></h1>
+            <p class="about-lead">
+              An AI research project that turns three ordinary photos into a way to explore the
+              shape and volume of a leg.
+            </p>
+            <a class="secondary" href="#mission">Discover the purpose <span>↓</span></a>
+          </div>
+          <figure class="about-visual">
+            <div class="visual-halo"></div>
+            <img class="about-leg" src="assets/left.svg" alt="Illustrative wireframe leg model" />
+            <div class="scan-beam"></div>
+            <div class="image-chip chip-one">
+              <img src="assets/front.svg" alt="Front" /><span>01 / FRONT</span>
+            </div>
+            <div class="image-chip chip-two">
+              <img src="assets/right.svg" alt="Right side" /><span>03 / RIGHT</span>
+            </div>
+            <div class="visual-tag">3 PHOTOS → 3D GEOMETRY</div>
+            <figcaption>Illustration of the concept, not a reconstruction of your leg.</figcaption>
+          </figure>
+        </section>
+        <section id="mission" class="about-section">
+          <div class="label">WHY WE ARE BUILDING IT</div>
+          <div class="mission-layout">
+            <h2>Make change<br />easier to see.</h2>
+            <div>
+              <p class="large-copy">
+                Our goal is to make monitoring leg shape and volume accessible, quick and convenient
+                using a familiar device: a camera.
+              </p>
+              <p>
+                Small changes can be difficult to judge from memory or a single photograph.
+                Repeatable measurements could give people and clinicians a clearer record to discuss
+                over time.
+              </p>
+              <div class="mission-note">
+                <span aria-hidden="true">↗</span>
+                <p>
+                  The research question: how accurately and consistently can we measure leg volume
+                  from three photographs?
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="journey" class="about-section">
+          <div class="section-head">
+            <div>
+              <div class="label">FROM PHOTOS TO INSIGHT</div>
+              <h2>Follow the journey.</h2>
+            </div>
+            <p>Select a step to see what it contributes.</p>
+          </div>
+          <div class="journey-tabs" role="tablist" aria-label="Explore the process">
+            <button
+              role="tab"
+              id="tab-capture"
+              aria-controls="panel-capture"
+              aria-selected="true"
+              data-step="capture"
+            >
+              01 · Capture</button
+            ><button
+              role="tab"
+              id="tab-build"
+              aria-controls="panel-build"
+              aria-selected="false"
+              tabindex="-1"
+              data-step="build"
+            >
+              02 · Reconstruct</button
+            ><button
+              role="tab"
+              id="tab-measure"
+              aria-controls="panel-measure"
+              aria-selected="false"
+              tabindex="-1"
+              data-step="measure"
+            >
+              03 · Measure</button
+            ><button
+              role="tab"
+              id="tab-track"
+              aria-controls="panel-track"
+              aria-selected="false"
+              tabindex="-1"
+              data-step="track"
+            >
+              04 · Compare
+            </button>
+          </div>
+          <div
+            class="journey-panel"
+            id="panel-capture"
+            role="tabpanel"
+            aria-labelledby="tab-capture"
+          >
+            <div class="capture-art" aria-hidden="true">
+              <img src="assets/front.svg" alt="" /><img src="assets/left.svg" alt="" /><img
+                src="assets/right.svg"
+                alt=""
+              />
+            </div>
+            <div>
+              <div class="label">A CONSISTENT START</div>
+              <h3>Three views. The same pose.</h3>
+              <p>
+                Take one photo from the front, one from the left and one from the right. Keep the
+                whole target area visible, with consistent lighting, pose and camera height.
+              </p>
+              <p class="panel-detail">
+                The measured leg length provides a reference for real-world scale. Clear capture
+                instructions help make repeat scans comparable.
+              </p>
+            </div>
+          </div>
+          <div
+            class="journey-panel"
+            id="panel-build"
+            role="tabpanel"
+            aria-labelledby="tab-build"
+            hidden
+          >
+            <div class="mesh-art">
+              <img src="assets/left.svg" alt="Illustrative wireframe leg model" />
+              <div class="mesh-reveal"></div>
+            </div>
+            <div>
+              <div class="label">SHAPE FROM IMAGES</div>
+              <h3>From pixels to a surface.</h3>
+              <p>
+                Image preparation and AI reconstruction turn the views into a 3D mesh: a surface
+                made of connected vertices and faces.
+              </p>
+              <p class="panel-detail">
+                Our research pipeline already reconstructs models from multiple images. We are
+                testing its accuracy and consistency before connecting it to this website.
+              </p>
+            </div>
+          </div>
+          <div
+            class="journey-panel"
+            id="panel-measure"
+            role="tabpanel"
+            aria-labelledby="tab-measure"
+            hidden
+          >
+            <div class="measure-art" aria-hidden="true">
+              <div class="measure-ruler"></div>
+              <img src="assets/front.svg" alt="" /><span class="measure-unit">cm³</span>
+            </div>
+            <div>
+              <div class="label">GEOMETRY WITH SCALE</div>
+              <h3>A model you can measure.</h3>
+              <p>
+                Mesh processing checks the surface and applies scale calibration. A suitable, closed
+                mesh can then be used to calculate the volume of the defined leg region in cubic
+                centimetres.
+              </p>
+              <p class="panel-detail">
+                Volume accuracy, measurement boundaries and reconstruction quality are still being
+                evaluated. A visually convincing model is not automatically an accurate measurement.
+              </p>
+            </div>
+          </div>
+          <div
+            class="journey-panel"
+            id="panel-track"
+            role="tabpanel"
+            aria-labelledby="tab-track"
+            hidden
+          >
+            <div class="track-art" aria-hidden="true">
+              <svg viewBox="0 0 400 240">
+                <path d="M35 30V200H365" fill="none" stroke="#b0d9d0" />
+                <path
+                  class="trend-line"
+                  d="M40 100 Q100 75 155 115 T265 108 T360 85"
+                  fill="none"
+                  stroke="#1aab90"
+                  stroke-width="4"
+                />
+                <circle cx="155" cy="115" r="7" fill="#fff" stroke="#1aab90" stroke-width="3" />
+                <circle cx="360" cy="85" r="7" fill="#fff" stroke="#1aab90" stroke-width="3" /></svg
+              ><small>ILLUSTRATIVE TREND</small>
+            </div>
+            <div>
+              <div class="label">THE VALUE OF REPEAT SCANS</div>
+              <h3>Understand change over time.</h3>
+              <p>
+                Saved scans can bring volume, shape and dates into one view. The goal is to compare
+                measurements taken under consistent conditions and make changes easier to review.
+              </p>
+              <p class="panel-detail">
+                The current website saves demo sessions locally. Real comparisons will use your
+                pipeline results once integration is complete.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="research" class="about-section">
+          <div class="label">THE TECHNOLOGY, EXPLAINED</div>
+          <h2>Several tools.<br />One connected process.</h2>
+          <div class="technology-grid">
+            <article>
+              <span class="tech-symbol">◉</span><small>01 / IMAGE PREPARATION</small>
+              <h3>Computer vision</h3>
+              <p>
+                Prepare and isolate the target leg region so reconstruction starts with useful,
+                consistent inputs.
+              </p>
+            </article>
+            <article>
+              <span class="tech-symbol">✧</span><small>02 / AI RECONSTRUCTION</small>
+              <h3>AI + Hunyuan3D</h3>
+              <p>
+                The reconstruction stage transforms image information into a three-dimensional
+                representation of the leg.
+              </p>
+            </article>
+            <article>
+              <span class="tech-symbol">⬡</span><small>03 / GEOMETRY</small>
+              <h3>Mesh processing + Trimesh</h3>
+              <p>
+                Inspect mesh geometry, apply scale and calculate volume for a clearly defined
+                measurement region.
+              </p>
+            </article>
+            <article>
+              <span class="tech-symbol">↻</span><small>04 / INTERACTIVE VIEWING</small>
+              <h3>Browser visualization</h3>
+              <p>
+                Rotate and explore the model in your browser. This prototype uses Canvas; Three.js
+                is planned for viewing the pipeline’s real 3D output.
+              </p>
+            </article>
+          </div>
+        </section>
+        <section class="project-status about-section">
+          <div>
+            <div class="label">WHERE WE ARE TODAY</div>
+            <h2>Research in progress.<br />A clear next step.</h2>
+          </div>
+          <div class="status-list">
+            <article>
+              <span class="status-dot"></span>
+              <div>
+                <h3>Working research pipeline</h3>
+                <p>
+                  Multi-image reconstruction is working. We are testing model quality and developing
+                  scaled volume calculations.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span class="status-dot demo-dot"></span>
+              <div>
+                <h3>Interactive website prototype</h3>
+                <p>
+                  Photo uploads, animated processing, sample results, reports and local demo history
+                  are available. The research model is not yet connected to the website.
+                </p>
+              </div>
+            </article>
+            <article>
+              <span class="status-dot future-dot"></span>
+              <div>
+                <h3>Future clinical research</h3>
+                <p>
+                  With clinicians, we aim to develop and validate criteria for interpreting changes
+                  and deciding when further examination may be appropriate.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="clinical-note about-section">
+          <span class="clinical-symbol" aria-hidden="true">+</span>
+          <div>
+            <h3>Designed to support understanding, not replace a clinician.</h3>
+            <p>
+              LegSense does not currently provide a diagnosis or a medical assessment. Any future
+              health recommendations will require clinical validation. The long-term aim is an
+              accessible monitoring tool that helps users and clinicians review changes and discuss
+              next steps.
+            </p>
+          </div>
+        </section>
+        <section class="about-cta">
+          <div class="label">EXPLORE THE EXPERIENCE</div>
+          <h2>See the idea in action.</h2>
+          <p>Try the interactive demonstration, or return to the capture guide.</p>
+          <div>
+            <a class="pill" href="index.html#scan">Try the demo <span>→</span></a
+            ><a class="secondary" href="index.html#how">Capture guide</a>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <a href="index.html">Back to LegSense</a><span>LegSense © 2026</span
+        ><span>Research project · Demonstration website</span>
+      </footer>
+    </div>
+    <script src="js/translations.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/ambient.js"></script>
+    <script src="js/about.js"></script>
+  </body>
+</html>

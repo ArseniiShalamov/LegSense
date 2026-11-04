@@ -29,7 +29,8 @@ images through `fetch()` requires an HTTP server.
 
 ```text
 LegSense/
-├── index.html              Page structure and English copy
+├── index.html              Main page and English copy
+├── about.html              Separate project information page
 ├── css/
 │   └── styles.css          Styling, responsive layout, RTL and reveal animations
 ├── js/
@@ -56,6 +57,14 @@ CSS is separate from HTML. JavaScript is split by responsibility and includes
 English comments. The `<script>` order at the end of `index.html` matters:
 `analysis.js` uses geometry from `hero.js` and selected photos from `uploads.js`.
 These are ordinary sequential scripts, not ES modules.
+
+## About the project page
+
+Open `about.html` or use **About LegSense** in the navigation or footer.
+The separate page explains the purpose, workflow, technology and research status
+with animated illustrations and interactive steps. It supports all three languages.
+Page-specific styles and interactions are in `css/about.css` and `js/about.js`.
+The background retains the saved 128-particle configuration.
 
 ## Working features
 
