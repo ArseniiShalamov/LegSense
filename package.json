@@ -1,0 +1,13 @@
+{
+  "name": "legsense",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LegSense — static multilingual 3D leg analysis interface prototype",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

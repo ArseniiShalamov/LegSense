@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LegSense — A new dimension</title>
+    <meta name="description" content="Explore a moving 3D leg visualization with LegSense." />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header: logo, navigation and language selector -->
+      <header>
+        <a class="logo" href="#"
+          ><span class="mark"><i></i><i></i><i></i></span>LegSense</a
+        >
+        <nav>
+          <a href="#how">How it works</a><a href="#history">History</a
+          ><a href="#technology">Technology</a>
+        </nav>
+        <div class="actions">
+          <select class="language" id="lang" aria-label="Switch language" dir="ltr">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="he">עברית</option></select
+          ><button class="pill analyze">Analyze My Leg <span>→</span></button>
+        </div>
+      </header>
+      <main>
+        <!-- Hero: heading and rotating sample leg -->
+        <section class="hero">
+          <div class="copy">
+            <div class="eyebrow"><span class="plus">✚</span> AI-ASSISTED 3D LEG ANALYSIS</div>
+            <h1>
+              See your leg<br /><em>in a new<br />dimension.</em>
+            </h1>
+            <p class="intro">
+              Three photos become an interactive 3D reconstruction with volume, geometry quality and
+              easy-to-understand health insights.
+            </p>
+            <div class="ctas">
+              <button class="pill analyze">Analyze My Leg <span>→</span></button
+              ><a class="secondary" href="#how"><span class="play">▶</span>See how it works</a>
+            </div>
+            <div class="stats">
+              <div class="stat">
+                <span class="icon">▧</span>
+                <div><b>3</b><small>photos</small></div>
+              </div>
+              <div class="stat">
+                <span class="icon">⬡</span>
+                <div><b>3D</b><small>reconstruction</small></div>
+              </div>
+              <div class="stat">
+                <span class="icon">▥</span>
+                <div><b>Volume</b><small>in cm³</small></div>
+              </div>
+              <div class="stat">
+                <span class="icon">♧</span>
+                <div><b>Private</b><small>local processing</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="visual">
+            <canvas
+              id="leg"
+              aria-label="Animated triangulated 3D leg model. Drag to rotate."
+            ></canvas>
+            <div class="float volume">
+              <span class="icon">⬡</span>
+              <div><small>VOLUME</small><strong>3,142 cm³</strong></div>
+            </div>
+            <div class="float mesh">
+              <span class="icon">♧</span>
+              <div><small>MESH QUALITY</small><strong>98%</strong></div>
+            </div>
+            <div class="float ready"><span class="check">✓</span> ANALYSIS READY</div>
+            <div class="controls">
+              <button id="pause" aria-label="Pause animation">Ⅱ Pause</button
+              ><span>DRAG TO ROTATE · DEMO MODEL</span>
+            </div>
+          </div>
+        </section>
+        <!-- Project features -->
+        <section class="features">
+          <div class="feature">
+            <span class="icon">ϟ</span>
+            <div>
+              <b>Fast & Easy</b>
+              <p>Just 3 photos and a few seconds</p>
+            </div>
+          </div>
+          <div class="feature">
+            <span class="icon">⬡</span>
+            <div>
+              <b>Interactive 3D Model</b>
+              <p>View, rotate and explore your leg</p>
+            </div>
+          </div>
+          <div class="feature">
+            <span class="icon">✚</span>
+            <div>
+              <b>Health Insights</b>
+              <p>A clearer picture of your leg</p>
+            </div>
+          </div>
+          <div class="feature">
+            <span class="icon">♙</span>
+            <div>
+              <b>Privacy First</b>
+              <p>Your data stays on your device</p>
+            </div>
+          </div>
+        </section>
+        <!-- Three-view capture guide; subsequent sections are nested inside this container -->
+        <section class="process" id="how">
+          <div class="label">SIMPLE PROCESS</div>
+          <h2>Three angles. One clear picture.</h2>
+          <p class="process-intro">
+            Keep the same pose and distance. LegSense uses the three views to understand the
+            shape<br class="desktop-break" />
+            of your leg.
+          </p>
+          <div class="angle-grid">
+            <article class="angle-card">
+              <span class="angle-number">01</span
+              ><img
+                src="assets/front.svg"
+                alt="Front view of a teal wireframe leg"
+                loading="lazy"
+              />
+              <h3>Front</h3>
+              <p>Face the camera. Keep the full leg visible.</p>
+            </article>
+            <article class="angle-card">
+              <span class="angle-number">02</span
+              ><img
+                src="assets/left.svg"
+                alt="Left side profile of a teal wireframe leg"
+                loading="lazy"
+              />
+              <h3>Left side</h3>
+              <p>Turn 90°. Keep the camera at the same height.</p>
+            </article>
+            <article class="angle-card">
+              <span class="angle-number">03</span
+              ><img
+                src="assets/right.svg"
+                alt="Right side profile of a teal wireframe leg"
+                loading="lazy"
+              />
+              <h3>Right side</h3>
+              <p>Capture the opposite profile without changing pose.</p>
+            </article>
+          </div>
+          <div class="photo-tip">
+            <span aria-hidden="true">✦</span>
+            <p>
+              <b>Photo tip:</b> use even lighting, a simple background and keep the whole target
+              area inside the frame.
+            </p>
+          </div>
+          <!-- Upload form for three photos and measured leg length -->
+          <section class="scan" id="scan" aria-labelledby="scan-title">
+            <div class="label">YOUR SCAN</div>
+            <h2 id="scan-title">Ready when you are.</h2>
+            <p class="scan-intro">
+              Upload three views. Images stay in your browser in this prototype.
+            </p>
+            <div class="upload-grid">
+              <div class="photo-slot" data-view="front">
+                <label class="photo-picker" for="photo-front"
+                  ><input
+                    type="file"
+                    id="photo-front"
+                    accept="image/*"
+                    aria-label="Front photo"
+                  /><img class="photo-preview" alt="Selected front photo" hidden /><span
+                    class="photo-empty"
+                    ><span class="upload-plus">+</span><strong>Front photo</strong
+                    ><span>Click or drop image</span></span
+                  ><span class="photo-caption" hidden>Front photo · Click to replace</span></label
+                ><button class="remove-photo" type="button" aria-label="Remove front photo" hidden>
+                  ×
+                </button>
+                <p class="photo-error" aria-live="polite"></p>
+              </div>
+              <div class="photo-slot" data-view="left">
+                <label class="photo-picker" for="photo-left"
+                  ><input
+                    type="file"
+                    id="photo-left"
+                    accept="image/*"
+                    aria-label="Left photo"
+                  /><img class="photo-preview" alt="Selected left photo" hidden /><span
+                    class="photo-empty"
+                    ><span class="upload-plus">+</span><strong>Left photo</strong
+                    ><span>Click or drop image</span></span
+                  ><span class="photo-caption" hidden>Left photo · Click to replace</span></label
+                ><button class="remove-photo" type="button" aria-label="Remove left photo" hidden>
+                  ×
+                </button>
+                <p class="photo-error" aria-live="polite"></p>
+              </div>
+              <div class="photo-slot" data-view="right">
+                <label class="photo-picker" for="photo-right"
+                  ><input
+                    type="file"
+                    id="photo-right"
+                    accept="image/*"
+                    aria-label="Right photo"
+                  /><img class="photo-preview" alt="Selected right photo" hidden /><span
+                    class="photo-empty"
+                    ><span class="upload-plus">+</span><strong>Right photo</strong
+                    ><span>Click or drop image</span></span
+                  ><span class="photo-caption" hidden>Right photo · Click to replace</span></label
+                ><button class="remove-photo" type="button" aria-label="Remove right photo" hidden>
+                  ×
+                </button>
+                <p class="photo-error" aria-live="polite"></p>
+              </div>
+            </div>
+            <div class="capture-checks">
+              <label
+                ><input type="checkbox" id="pose-check" /> Full leg visible, same pose and camera
+                height in all three views</label
+              >
+              <p>
+                Resolution and exposure are checked on your device. Pose, framing and diagnostic
+                suitability need confirmation; automatic recognition is not connected yet.
+              </p>
+              <button type="button" class="text-button" id="sample-run">
+                Try the animation with sample images →
+              </button>
+            </div>
+            <div class="scan-bar">
+              <div>
+                <div class="measurement">
+                  <label for="leg-length">Measured leg length</label
+                  ><span class="length-field"
+                    ><input
+                      id="leg-length"
+                      type="number"
+                      min="10"
+                      max="150"
+                      step="0.1"
+                      placeholder="72"
+                      inputmode="decimal"
+                    /><span>cm</span></span
+                  >
+                </div>
+                <p>Used later to calibrate the 3D model to real-world scale.</p>
+              </div>
+              <button class="pill" id="scan-action" disabled>Analyze My Leg <span>→</span></button>
+            </div>
+            <p id="scan-status" class="scan-status" aria-live="polite"></p>
+          </section>
+          <!-- Processing preview and results; hidden until the demo starts -->
+          <section id="analysis-flow" class="analysis-flow" hidden aria-labelledby="flow-title">
+            <div class="flow-top">
+              <div>
+                <div class="label">DEMONSTRATION · MODEL NOT CONNECTED</div>
+                <h2 id="flow-title">Bringing the shape to life.</h2>
+                <p id="flow-subtitle">Your photos stay on this device.</p>
+              </div>
+              <button class="text-button" id="cancel-analysis">Cancel</button>
+            </div>
+            <div class="flow-layout">
+              <div class="reconstruction">
+                <canvas
+                  id="result-model"
+                  aria-label="Illustrative 3D leg mesh. Drag to rotate."
+                ></canvas>
+                <div id="source-thumbs" class="source-thumbs"></div>
+                <span class="model-badge">ILLUSTRATIVE MODEL</span
+                ><button id="model-pause" class="model-pause" aria-label="Pause result model">
+                  Ⅱ Pause
+                </button>
+              </div>
+              <div class="flow-details">
+                <ol id="analysis-stages">
+                  <li>Check images</li>
+                  <li>Build point cloud</li>
+                  <li>Connect the 3D mesh</li>
+                  <li>Preview volume calculation</li>
+                  <li>Prepare the result</li>
+                </ol>
+                <progress
+                  id="analysis-progress"
+                  max="100"
+                  value="0"
+                  aria-label="Demonstration progress"
+                ></progress>
+                <p id="stage-description" aria-live="polite">Preparing images…</p>
+                <p class="demo-explanation">
+                  This preview uses a preset mesh and sample measurements. It does not reconstruct
+                  or assess your leg.
+                </p>
+              </div>
+            </div>
+            <div id="scan-result" hidden>
+              <div class="result-heading">
+                <div>
+                  <div class="label">YOUR RESULT · DEMO</div>
+                  <h2>Every detail, in perspective.</h2>
+                </div>
+                <span id="result-date"></span>
+              </div>
+              <div class="result-metrics">
+                <div>
+                  <small>Sample volume</small><strong>3,142 <span>cm³</span></strong>
+                </div>
+                <div><small>Entered leg length</small><strong id="result-length">—</strong></div>
+                <div><small>Reconstruction quality</small><strong>Not evaluated</strong></div>
+                <div>
+                  <small>Change vs previous demo</small><strong id="result-change">—</strong>
+                </div>
+              </div>
+              <div class="assessment">
+                <span class="assessment-icon">i</span>
+                <div>
+                  <h3>Insufficient data for a health assessment</h3>
+                  <p>
+                    The medical model is not connected. This preview cannot determine whether you
+                    are healthy or whether you need to see a doctor. A clinical recommendation will
+                    appear here when the validated model is integrated.
+                  </p>
+                </div>
+              </div>
+              <div class="result-actions">
+                <button class="pill" id="download-report">Download report ↓</button
+                ><button class="secondary" id="download-model">Download sample 3D mesh ↓</button
+                ><button class="text-button" id="new-scan">New scan →</button>
+              </div>
+              <p class="local-note" id="save-status"></p>
+            </div>
+            <div id="analysis-error" hidden role="alert">
+              <h3>We couldn’t complete the preview.</h3>
+              <p id="analysis-error-text"></p>
+              <button class="secondary" id="retry-analysis">Try again</button>
+            </div>
+          </section>
+          <!-- Demo scan history -->
+          <section class="scan-history" id="history" aria-labelledby="history-title">
+            <div class="history-heading">
+              <h2 id="history-title">Your scan history.</h2>
+              <p>Future scans can help visualize changes in volume and geometry over time.</p>
+            </div>
+            <div class="history-panel">
+              <div class="chart-wrap">
+                <span class="demo-label">ILLUSTRATIVE DATA</span
+                ><svg
+                  class="history-chart"
+                  viewBox="0 0 860 290"
+                  role="img"
+                  aria-label="Illustrative volume history chart, not actual scan results"
+                >
+                  <defs>
+                    <linearGradient id="history-fill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#75cdb6" stop-opacity=".30" />
+                      <stop offset="1" stop-color="#75cdb6" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <g fill="#8ca4a9" font-family="Arial,sans-serif" font-size="10">
+                    <text x="0" y="26">3,300</text>
+                    <text x="0" y="100">3,200</text>
+                    <text x="0" y="174">3,100</text>
+                    <text x="0" y="250">3,000 cm³</text>
+                    <text x="54" y="267">Sep 12</text>
+                    <text x="310" y="267">Oct 01</text>
+                    <text x="560" y="267">Oct 18</text>
+                    <text x="810" y="267">Today</text>
+                  </g>
+                  <path
+                    d="M62 94 C180 87 242 141 350 128 S520 86 634 121 S742 162 816 106 L816 247 L62 247Z"
+                    fill="url(#history-fill)"
+                  />
+                  <path
+                    d="M62 94 C180 87 242 141 350 128 S520 86 634 121 S742 162 816 106"
+                    fill="none"
+                    stroke="#50ba9f"
+                    stroke-width="2.2"
+                  />
+                  <g fill="white" stroke="#50ba9f" stroke-width="2">
+                    <circle cx="62" cy="94" r="5" />
+                    <circle cx="350" cy="128" r="5" />
+                    <circle cx="634" cy="121" r="5" />
+                    <circle cx="816" cy="106" r="5" />
+                  </g>
+                </svg>
+              </div>
+              <aside class="history-summary">
+                <span>Latest volume</span>
+                <p><strong>3,142</strong> <b>cm³</b></p>
+                <small>−1.8% since first scan</small
+                ><button
+                  id="view-history"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="history-detail"
+                >
+                  View all history →
+                </button>
+              </aside>
+            </div>
+            <div id="history-detail" hidden>
+              <p>
+                This chart is a design preview with illustrative values. Your actual scan history
+                will appear here once analysis and saving are connected.
+              </p>
+              <a href="#scan">Start a new scan →</a>
+            </div>
+          </section>
+          <!-- Planned technology overview -->
+          <section class="tech-story" id="technology" aria-labelledby="tech-title">
+            <div class="tech-copy">
+              <div class="label">BUILT WITH CARE</div>
+              <h2 id="tech-title">Complex technology.<br />Simple experience.</h2>
+              <p>
+                LegSense is designed around a local-first pipeline: image preparation, multi-view 3D
+                reconstruction, mesh validation, scale calibration and volume calculation.
+              </p>
+              <div class="tech-tags" aria-label="Planned technologies">
+                <span>Hunyuan3D</span><span>Trimesh</span><span>FastAPI</span><span>WebGL</span>
+              </div>
+              <small class="tech-note"
+                >Planned pipeline · Processing is not connected in this prototype.</small
+              >
+            </div>
+            <div class="pipeline" aria-label="Planned processing steps">
+              <div><b>01</b><span>3 images</span></div>
+              <i aria-hidden="true">→</i>
+              <div><b>02</b><span>3D mesh</span></div>
+              <i aria-hidden="true">→</i>
+              <div><b>03</b><span>Scale</span></div>
+              <i aria-hidden="true">→</i>
+              <div><b>04</b><span>Volume</span></div>
+            </div>
+          </section>
+        </section>
+      </main>
+      <!-- Footer -->
+      <footer>
+        <span>LegSense © 2026</span><span>Interactive concept · Not a medical assessment</span>
+      </footer>
+    </div>
+    <!-- Load scripts in order: settings → mesh → uploads → demo analysis → translations → visual effects. -->
+    <script src="js/config.js"></script>
+    <script src="js/hero.js"></script>
+    <script src="js/uploads.js"></script>
+    <script src="js/analysis.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/ambient.js"></script>
+  </body>
+</html>
