@@ -1,0 +1,618 @@
+/* About LegSense: a separate educational page. All motion respects reduced-motion. */
+.about-main {
+  max-width: 1240px;
+  margin: auto;
+  padding: 0 35px;
+}
+.about-page header {
+  height: 100px;
+}
+.about-page nav {
+  gap: 26px;
+}
+.about-page h1 {
+  font-size: clamp(45px, 5vw, 70px);
+  letter-spacing: -3px;
+  line-height: 1.08;
+}
+.about-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 55px;
+  align-items: center;
+  padding: 75px 0 80px;
+}
+.about-lead {
+  color: #5b7782;
+  font-size: 20px;
+  line-height: 1.7;
+  max-width: 550px;
+  margin: 25px 0 35px;
+}
+.about-visual {
+  height: 480px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+}
+.about-leg {
+  width: 66%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 140px;
+  box-shadow: 0 20px 70px #00958020;
+  animation: about-hover 8s ease-in-out infinite;
+}
+.visual-halo {
+  position: absolute;
+  width: 98%;
+  aspect-ratio: 1;
+  border: 1px solid #80cbbc50;
+  border-radius: 50%;
+  transform: rotateX(25deg);
+  pointer-events: none;
+}
+.visual-halo:after {
+  content: "";
+  position: absolute;
+  inset: 25px;
+  border: 1px dashed #79c5bb50;
+  border-radius: 50%;
+  animation: about-orbit 60s linear infinite;
+}
+.image-chip {
+  position: absolute;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffffdc;
+  border: 1px solid white;
+  box-shadow: 0 12px 25px #134f4010;
+  padding: 8px;
+  border-radius: 17px;
+  animation: about-hover 7s ease-in-out infinite;
+}
+.image-chip img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 11px;
+}
+.image-chip span {
+  font-size: 8px;
+  letter-spacing: 1px;
+  padding: 9px 2px 3px;
+  color: #4a827b;
+}
+.chip-one {
+  left: 0;
+  top: 60px;
+  transform: rotate(-7deg);
+}
+.chip-two {
+  right: 0;
+  bottom: 75px;
+  animation-delay: -3s;
+}
+.visual-tag {
+  position: absolute;
+  bottom: 30px;
+  background: #fff;
+  border: 1px solid #d7ece7;
+  border-radius: 25px;
+  padding: 12px 18px;
+  letter-spacing: 1.5px;
+  font-size: 10px;
+  color: #147f73;
+}
+.about-visual figcaption {
+  position: absolute;
+  bottom: -15px;
+  font-size: 10px;
+  color: #6d928b;
+  text-align: center;
+}
+.scan-beam {
+  position: absolute;
+  left: 18%;
+  width: 64%;
+  height: 2px;
+  background: #effffb;
+  box-shadow: 0 0 18px 5px #c1fff490;
+  top: 20%;
+  animation: about-scan 7s ease-in-out infinite;
+  pointer-events: none;
+}
+.about-section {
+  padding: 75px 0;
+  border-top: 1px solid #d6eae5;
+  scroll-margin-top: 25px;
+}
+.about-page h2 {
+  font-size: 43px;
+  letter-spacing: -1.7px;
+  line-height: 1.15;
+  margin: 20px 0 32px;
+}
+.about-page h3 {
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  margin: 12px 0 14px;
+}
+.about-page p {
+  line-height: 1.8;
+}
+.mission-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 75px;
+}
+.mission-layout h2 {
+  font-size: 52px;
+}
+.mission-layout p {
+  font-size: 16px;
+  color: #5b7782;
+  margin: 15px 0;
+}
+.mission-layout .large-copy {
+  font-size: 22px;
+  color: #264f57;
+}
+.mission-note {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #dff3ed;
+  border-radius: 17px;
+  padding: 10px 22px;
+  margin-top: 25px;
+}
+.mission-note > span {
+  color: #25a58c;
+  font-size: 36px;
+}
+.mission-note p {
+  font-size: 14px;
+  color: #2b7366;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.section-head > p {
+  font-size: 14px;
+  color: #6c898c;
+}
+.journey-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid #d5e6e1;
+  border-radius: 16px;
+  padding: 6px;
+  gap: 5px;
+  background: #ffffffb0;
+  margin-top: 15px;
+}
+.journey-tabs button {
+  border: 0;
+  background: none;
+  padding: 17px 10px;
+  color: #64837e;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.journey-tabs button[aria-selected="true"] {
+  background: #158e7f;
+  color: white;
+  box-shadow: 0 5px 12px #16795c22;
+}
+.journey-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 55px;
+  align-items: center;
+  background: #ffffffbb;
+  border: 1px solid #dfebe7;
+  border-radius: 25px;
+  padding: 40px;
+  margin-top: 20px;
+  min-height: 340px;
+}
+.journey-panel p {
+  font-size: 15px;
+  color: #597780;
+}
+.journey-panel .panel-detail {
+  font-size: 13px;
+  color: #7a9295;
+}
+.capture-art {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  direction: ltr;
+}
+.capture-art img {
+  width: calc((100% - 24px) / 3);
+  border-radius: 15px;
+  animation: about-hover 6s ease-in-out infinite;
+}
+.capture-art img:nth-child(2) {
+  animation-delay: -2s;
+}
+.capture-art img:nth-child(3) {
+  animation-delay: -4s;
+}
+.mesh-art,
+.measure-art {
+  position: relative;
+  max-width: 330px;
+  width: 100%;
+  margin: auto;
+  border-radius: 25px;
+  overflow: hidden;
+}
+.mesh-art img,
+.measure-art img {
+  width: 100%;
+  display: block;
+}
+.mesh-reveal {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, #d9fff5aa, transparent);
+  height: 30%;
+  animation: about-scan 5s ease-in-out infinite;
+}
+.measure-ruler {
+  position: absolute;
+  top: 5%;
+  bottom: 8%;
+  left: 15%;
+  width: 13px;
+  border-left: 2px solid white;
+  background: repeating-linear-gradient(to bottom, white 0 1px, transparent 1px 14px);
+  z-index: 1;
+}
+.measure-unit {
+  position: absolute;
+  right: 18px;
+  top: 35%;
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  color: #188f7b;
+  font-size: 25px;
+  font-weight: bold;
+}
+.track-art {
+  background: #e0f3ec;
+  border-radius: 22px;
+  padding: 20px;
+  direction: ltr;
+}
+.track-art svg {
+  width: 100%;
+}
+.track-art small {
+  color: #609c8d;
+  letter-spacing: 1.5px;
+  font-size: 9px;
+}
+.trend-line {
+  stroke-dasharray: 430;
+  animation: about-trend 6s ease-in-out infinite;
+}
+.technology-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.technology-grid article {
+  border: 1px solid #d7e8e3;
+  background: #ffffffb8;
+  padding: 25px 20px;
+  border-radius: 21px;
+}
+.technology-grid h3 {
+  font-size: 19px;
+  margin-top: 20px;
+}
+.technology-grid p {
+  font-size: 13px;
+  color: #63808a;
+}
+.tech-symbol {
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  background: #dcf3eb;
+  color: #159b83;
+  border-radius: 14px;
+  font-size: 29px;
+  margin-bottom: 24px;
+}
+.technology-grid small {
+  font-size: 8px;
+  color: #528f81;
+  letter-spacing: 1px;
+}
+.project-status {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 65px;
+}
+.status-list article {
+  display: flex;
+  gap: 17px;
+  padding: 20px 0;
+  border-bottom: 1px solid #d4e6df;
+}
+.status-list article:first-child {
+  padding-top: 0;
+}
+.status-list h3 {
+  font-size: 20px;
+  margin-top: 0;
+}
+.status-list p {
+  font-size: 14px;
+  color: #617f87;
+  margin-bottom: 0;
+}
+.status-dot {
+  margin-top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #1eaa88;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 6px #1eaa8810;
+}
+.demo-dot {
+  background: #6bb9b3;
+}
+.future-dot {
+  background: #a9bcb8;
+}
+.clinical-note {
+  display: flex;
+  gap: 30px;
+  background: #163f42;
+  color: white;
+  border-radius: 26px;
+  padding: 35px;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+.clinical-note h3 {
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+.clinical-note p {
+  font-size: 14px;
+  color: #bbd7d1;
+  margin: 0;
+}
+.clinical-symbol {
+  font-size: 42px;
+  line-height: 1;
+  color: #78d4b9;
+}
+.about-cta {
+  text-align: center;
+  padding: 85px 20px;
+}
+.about-cta h2 {
+  font-size: 45px;
+}
+.about-cta p {
+  color: #64828a;
+}
+.about-cta > div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 30px;
+}
+.about-page footer {
+  gap: 25px;
+  flex-wrap: wrap;
+}
+.about-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s,
+    transform 0.7s;
+}
+.about-reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+html[dir="rtl"] .about-page .mission-layout,
+html[dir="rtl"] .about-page .journey-panel,
+html[dir="rtl"] .about-page .technology-grid,
+html[dir="rtl"] .about-page .clinical-note {
+  text-align: right;
+}
+html[dir="rtl"] .about-page .about-visual {
+  direction: ltr;
+}
+html[lang="ru"] .about-page h1 {
+  font-size: 56px;
+}
+html[lang="ru"] .about-page nav {
+  gap: 18px;
+  font-size: 14px;
+}
+@keyframes about-hover {
+  50% {
+    translate: 0 -10px;
+  }
+}
+@keyframes about-orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes about-scan {
+  0%,
+  100% {
+    top: 15%;
+  }
+  50% {
+    top: 78%;
+  }
+}
+@keyframes about-trend {
+  0% {
+    stroke-dashoffset: 430;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@media (max-width: 950px) {
+  .about-intro {
+    gap: 25px;
+  }
+  .technology-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .journey-panel {
+    gap: 30px;
+    padding: 28px;
+  }
+  .mission-layout,
+  .project-status {
+    gap: 35px;
+  }
+  .about-page header .pill {
+    font-size: 13px;
+    padding: 14px 20px;
+  }
+  .about-page nav {
+    gap: 16px;
+    font-size: 14px;
+  }
+  .about-page h1,
+  html[lang="ru"] .about-page h1 {
+    font-size: 50px;
+  }
+  .about-visual {
+    height: 410px;
+  }
+  .image-chip {
+    width: 85px;
+  }
+  .image-chip img {
+    height: 90px;
+  }
+}
+@media (max-width: 720px) {
+  .about-main {
+    padding: 0 24px;
+  }
+  .about-page header {
+    height: 85px;
+  }
+  .about-page header .actions .pill {
+    display: none;
+  }
+  .about-intro {
+    grid-template-columns: 1fr;
+    padding: 35px 0 55px;
+    gap: 35px;
+  }
+  .about-lead {
+    font-size: 17px;
+  }
+  .about-visual {
+    height: 420px;
+    max-width: 460px;
+    width: 100%;
+    margin: auto;
+  }
+  .about-page h1,
+  html[lang="ru"] .about-page h1 {
+    font-size: 47px;
+    letter-spacing: -2px;
+  }
+  .about-page h2,
+  .mission-layout h2 {
+    font-size: 35px;
+  }
+  .about-section {
+    padding: 50px 0;
+  }
+  .mission-layout,
+  .project-status,
+  .journey-panel {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .mission-layout .large-copy {
+    font-size: 19px;
+  }
+  .section-head {
+    display: block;
+  }
+  .journey-tabs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .journey-tabs button {
+    font-size: 13px;
+    padding: 13px 8px;
+  }
+  .journey-panel {
+    padding: 24px;
+    gap: 28px;
+  }
+  .technology-grid {
+    grid-template-columns: 1fr;
+  }
+  .technology-grid article {
+    padding: 24px;
+  }
+  .tech-symbol {
+    margin-bottom: 15px;
+  }
+  .clinical-note {
+    padding: 27px 22px;
+    gap: 15px;
+  }
+  .clinical-note h3 {
+    font-size: 21px;
+  }
+  .about-cta {
+    padding: 65px 0;
+  }
+  .about-cta > div:last-child {
+    flex-wrap: wrap;
+  }
+  .about-page .eyebrow {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-page *,
+  .about-page *:before,
+  .about-page *:after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .about-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

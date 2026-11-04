@@ -1799,3 +1799,29 @@ html[dir="rtl"].scroll-motion .scroll-reveal[data-reveal="slide"]:not(.is-visibl
     display: none;
   }
 }
+
+/* About-page navigation: the content itself lives in about.html. */
+nav {
+  gap: 26px;
+  font-size: 15px;
+}
+.about-mobile-link {
+  display: none;
+}
+@media (max-width: 720px) {
+  .about-mobile-link {
+    display: inline;
+    font-size: 12px;
+    color: #167f72;
+  }
+  .actions {
+    gap: 10px;
+  }
+  .language {
+    max-width: 95px;
+  }
+  .logo {
+    font-size: 22px;
+    gap: 8px;
+  }
+}
