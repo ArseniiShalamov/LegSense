@@ -373,3 +373,27 @@ html[data-theme="dark"] .angle-number {
     gap: 7px;
   }
 }
+
+/* Stronger repeatable reveals. Elements reset only outside the viewport. */
+.scroll-motion .scroll-reveal {
+  transition: opacity .85s ease var(--reveal-delay, 0ms),
+    transform 1s cubic-bezier(.16, 1, .3, 1) var(--reveal-delay, 0ms),
+    filter .85s ease var(--reveal-delay, 0ms);
+}
+.scroll-motion .scroll-reveal:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(65px) scale(.95);
+  filter: blur(4px);
+  transition-duration: .3s;
+  transition-delay: 0ms;
+}
+.scroll-motion .scroll-reveal[data-reveal="slide"]:not(.is-visible) { transform: translateX(-65px) scale(.96); }
+html[dir="rtl"].scroll-motion .scroll-reveal[data-reveal="slide"]:not(.is-visible) { transform: translateX(65px) scale(.96); }
+.scroll-motion .scroll-reveal[data-reveal="icon"]:not(.is-visible) { transform: translateY(24px) rotate(-24deg) scale(.5); }
+.scroll-motion .scroll-reveal.is-visible { opacity: 1; transform: none; filter: none; }
+.about-reveal { opacity: 0; transform: translateY(60px) scale(.97); filter: blur(4px); transition: opacity .85s ease, transform 1s cubic-bezier(.16,1,.3,1), filter .85s ease; }
+.about-reveal:not(.visible) { transition-duration: .3s; }
+.about-reveal.visible { opacity: 1; transform: none; filter: none; }
+@media(prefers-reduced-motion:reduce) {
+  .scroll-motion .scroll-reveal, .about-reveal { opacity: 1!important; transform: none!important; filter: none!important; transition: none!important; }
+}
