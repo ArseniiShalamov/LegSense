@@ -69,6 +69,7 @@ The background retains the saved 128-particle configuration.
 ## Working features
 
 - Three languages, saved language preference and right-to-left Hebrew layout.
+- Light and dark themes on both pages, with a saved preference.
 - Rotating sample 3D leg, manual rotation and pause controls.
 - Background particles with smooth cursor attraction.
 - Scroll reveal effects and reduced-motion support.
@@ -131,6 +132,13 @@ All asset paths are relative, so the project also works at a URL such as
 The archive excludes `.git`, `node_modules`, credentials, browser history and
 service-specific Sites hosting configuration. No repository or deployment was
 created automatically on your behalf.
+
+## Light and dark themes
+
+Use the sun/moon button beside the language selector. Theme colors are defined
+in `css/theme.css`; persistence and accessible labels are handled by `js/theme.js`.
+The preference is stored as `legsense-theme` in localStorage. This script loads
+in the document head so the saved theme is applied before the page is painted.
 
 ## Code formatting
 
