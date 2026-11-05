@@ -382,6 +382,172 @@
   };
   if (modelPaused) $("#model-pause").textContent = "▶ Play";
 
+  // Cinematic preset reconstruction: scattered samples converge, then a surface forms.
+  // This visualisation never represents AI inference or medical measurements.
+  let lastModelFrame = 0;
+  let completedBackdrop = 0;
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const clamp01 = value => Math.max(0, Math.min(1, value));
+  const smoothStep = value => { const t = clamp01(value); return t * t * (3 - 2 * t); };
+  function drawReconstruction(now, fraction) {
+    const ctx = meshCtx;
+    const dt = Math.min((now - lastModelFrame) / 1000 || 0, 0.05);
+    lastModelFrame = now;
+    const quiet = motionPreference.matches;
+    if (!modelPaused && !dragging && !quiet) modelAngle -= dt * 0.28;
+    const t = quiet ? 1 : fraction;
+    const scale = Math.min(mw / 4.2, mh / 6);
+    const co = Math.cos(modelAngle), si = Math.sin(modelAngle);
+    const cx = mw * 0.54, cy = mh * 0.49;
+    // The top of the platform shares the sole's exact projected height.
+    const soleY = Math.max(...verts.map(v => v.y));
+    const floorY = cy + soleY * scale;
+    const platformBlend = quiet || !busy ? 1 : smoothStep((t - 0.82) / 0.18);
+    const scanY = mh * 0.09 + (floorY - mh * 0.09) * smoothStep((t - 0.4) / 0.6);
+    ctx.clearRect(0, 0, mw, mh);
+    const glow = ctx.createRadialGradient(cx, mh * 0.55, 0, cx, mh * 0.55, mw * 0.55);
+    glow.addColorStop(0, 'rgba(33,225,192,.14)');
+    glow.addColorStop(1, 'rgba(33,225,192,0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, mw, mh);
+    // Begin revealing the scene during the final moments of reconstruction.
+    // Time-based easing avoids a sudden background change at the final frame.
+    const backdropTarget = (busy && t >= 0.84) || (!busy && !result.hidden) ? 1 : 0;
+    completedBackdrop = backdropTarget ? Math.min(1, completedBackdrop + dt / 3.2) : 0;
+    const backdropOpacity = backdropTarget * smoothStep(completedBackdrop);
+    if (backdropOpacity > 0) {
+      const drift = quiet || modelPaused ? 0 : Math.sin(now * 0.00018);
+      ctx.save();
+      ctx.globalAlpha = backdropOpacity;
+      for (let layer = 0; layer < 2; layer++) {
+        const x = mw * (layer ? 0.7 : 0.28) + drift * mw * 0.025;
+        const y = mh * (layer ? 0.34 : 0.65);
+        const radius = mw * 0.48;
+        const aurora = ctx.createRadialGradient(x,y,0,x,y,radius);
+        aurora.addColorStop(0, layer ? 'rgba(112,171,231,.13)' : 'rgba(63,228,192,.2)');
+        aurora.addColorStop(0.5, 'rgba(88,205,191,.07)');
+        aurora.addColorStop(1, 'rgba(88,205,191,0)');
+        ctx.fillStyle = aurora; ctx.fillRect(0,0,mw,mh);
+      }
+      // Perspective ground and an extruded plinth give the completed model a stage.
+      const darkScene = document.documentElement.dataset.theme === 'dark';
+      const horizon = mh * 0.64;
+      const ground = ctx.createLinearGradient(0,horizon,0,mh);
+      ground.addColorStop(0,'rgba(9,69,72,0)');
+      ground.addColorStop(1,darkScene ? 'rgba(3,25,35,.6)' : 'rgba(29,116,120,.2)');
+      ctx.fillStyle=ground; ctx.fillRect(0,horizon,mw,mh-horizon);
+      ctx.save();
+      ctx.beginPath();ctx.rect(0,horizon,mw,mh-horizon);ctx.clip();
+      ctx.lineWidth=.7;
+      for(let i=-8;i<=8;i++) {
+        ctx.beginPath();ctx.moveTo(cx+i*mw*.012,horizon);
+        ctx.lineTo(cx+i*mw*.16,mh);
+        ctx.strokeStyle=darkScene?'rgba(106,213,205,.15)':'rgba(21,117,119,.18)';ctx.stroke();
+      }
+      for(let i=1;i<=9;i++) {
+        const y=horizon+(mh-horizon)*Math.pow(i/9,2);
+        ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(mw,y);ctx.stroke();
+      }
+      ctx.restore();
+      // A few low-contrast light motes remain behind the leg.
+      for (let i=0;i<16;i++) {
+        const phase = i * 2.39996;
+        const x = mw * (0.5 + Math.cos(phase) * (0.23 + (i%3)*0.06)) + drift*3;
+        const y = mh * (0.16 + (i/16)*0.65);
+        ctx.beginPath(); ctx.arc(x,y,i%3 === 0 ? 1.4 : 0.9,0,Math.PI*2);
+        ctx.fillStyle = 'rgba(177,255,230,.3)'; ctx.fill();
+      }
+      ctx.restore();
+    }
+    // The descending scanner thickens into the same plinth, without a cut.
+    if (platformBlend > 0) {
+      ctx.save(); ctx.globalAlpha=platformBlend;
+      const darkScene = document.documentElement.dataset.theme === 'dark';
+      const rx=mw*.285, ry=mh*.036, depth=mh*.025*platformBlend;
+      ctx.save();ctx.translate(cx,floorY+depth+9);ctx.scale(rx*1.22,ry*1.8);
+      const shadow=ctx.createRadialGradient(0,0,0,0,0,1);
+      shadow.addColorStop(0,'rgba(0,30,35,.38)');shadow.addColorStop(1,'rgba(0,30,35,0)');
+      ctx.fillStyle=shadow;ctx.fillRect(-1,-1,2,2);ctx.restore();
+      ctx.beginPath();ctx.ellipse(cx,floorY+depth,rx,ry,0,0,Math.PI);
+      ctx.lineTo(cx-rx,floorY);ctx.ellipse(cx,floorY,rx,ry,0,Math.PI,0,true);ctx.closePath();
+      const edge=ctx.createLinearGradient(0,floorY,0,floorY+depth+ry);
+      edge.addColorStop(0,darkScene?'#24575e':'#64b8b1');edge.addColorStop(1,darkScene?'#0d2935':'#348d8c');
+      ctx.fillStyle=edge;ctx.fill();
+      ctx.beginPath();ctx.ellipse(cx,floorY,rx,ry,0,0,Math.PI*2);
+      const top=ctx.createRadialGradient(cx,floorY,0,cx,floorY,rx);
+      top.addColorStop(0,darkScene?'#387a78':'#b0e9db');top.addColorStop(1,darkScene?'#163d49':'#65b9b2');
+      ctx.fillStyle=top;ctx.fill();ctx.strokeStyle='rgba(163,255,224,.7)';ctx.lineWidth=1.2;ctx.stroke();
+      ctx.save();ctx.translate(cx,floorY-2);ctx.scale(rx*.48,ry*.55);
+      const contact=ctx.createRadialGradient(0,0,0,0,0,1);
+      contact.addColorStop(0,'rgba(0,39,44,.42)');contact.addColorStop(1,'rgba(0,39,44,0)');
+      ctx.fillStyle=contact;ctx.fillRect(-1,-1,2,2);ctx.restore();
+
+      ctx.restore();
+    }
+    const points = verts.map((v, i) => {
+      const seed = Math.sin(i * 127.1 + 31.7) * 43758.5453;
+      const random = seed - Math.floor(seed);
+      const assemblyTime = clamp01((t - 0.06 - random * 0.1) / 0.42);
+      const assembly = assemblyTime ** 3 * (assemblyTime * (assemblyTime * 6 - 15) + 10);
+      const angle = i * 2.39996 + (quiet ? 0 : now * 0.00012);
+      const distance = (1 - assembly) * mw * (0.22 + random * 0.2);
+      return {
+        x: cx + (v.x * co + v.z * si) * scale + Math.cos(angle) * distance,
+        y: cy + v.y * scale + Math.sin(angle) * distance * 0.65,
+        z: -v.x * si + v.z * co,
+        assembly, random
+      };
+    });
+    // Soft depth shading makes the final leg read as a volume, not a flat wireframe.
+    const surface = smoothStep((t - 0.43) / 0.43);
+
+    if (surface > 0) {
+      const sorted = faces.map(f => ({f, z: f.reduce((sum, i) => sum + points[i].z, 0) / 3})).sort((a,b) => a.z-b.z);
+      for (const {f, z} of sorted) {
+        const centerY = f.reduce((sum,i) => sum + points[i].y, 0) / 3;
+        const reveal = quiet || !busy ? 1 : smoothStep((scanY - centerY + 65) / 100);
+        if (reveal <= 0) continue;
+        ctx.beginPath();
+        f.forEach((i,k) => k ? ctx.lineTo(points[i].x,points[i].y) : ctx.moveTo(points[i].x,points[i].y));
+        ctx.closePath();
+        const shade = clamp01((z + 0.7) / 1.4);
+        ctx.fillStyle = `rgba(${12 + shade * 12},${115 + shade * 75},${111 + shade * 58},${surface * reveal * 0.66})`;
+        ctx.fill();
+        ctx.strokeStyle = `rgba(190,255,235,${surface * reveal * (0.19 + shade * 0.4)})`;
+        ctx.lineWidth = 0.65; ctx.stroke();
+      }
+    }
+    // Fine pearl-white samples ease into the surface instead of becoming heavy nodes.
+    ctx.save();
+    ctx.shadowColor = 'rgba(227,247,255,.4)';
+    ctx.shadowBlur = busy && !quiet ? 3 : 0;
+    points.forEach((p,i) => {
+      const opacity = busy ? smoothStep(t / 0.16) : 1;
+      const copies = busy && !quiet ? 3 : 1;
+      const surfaceFade = 1 - surface * 0.48;
+      for (let n = 0; n < copies; n++) {
+        const spread = (1-p.assembly) * (n + 1) * 13;
+        const satelliteFade = n ? 1 - smoothStep(p.assembly) : 1;
+        const radius = n ? 0.65 : (busy ? 1.05 : 1);
+        ctx.beginPath();
+        ctx.arc(p.x + Math.cos(i+n*2)*spread, p.y + Math.sin(i+n*2)*spread, radius, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(247,252,255,${opacity * surfaceFade * satelliteFade * (n ? 0.45 : 0.95)})`;
+        ctx.fill();
+      }
+    });
+    ctx.restore();
+    if (busy && !quiet && t > 0.38) {
+      const beam = ctx.createLinearGradient(0,scanY-35,0,scanY+12);
+      beam.addColorStop(0,'rgba(100,255,220,0)');
+      beam.addColorStop(0.8,'rgba(100,255,220,.13)');
+      beam.addColorStop(1,'rgba(100,255,220,0)');
+      ctx.save();ctx.globalAlpha=1-platformBlend;
+      ctx.fillStyle=beam; ctx.fillRect(mw*.16,scanY-35,mw*.73,47);ctx.restore();
+      ctx.beginPath(); ctx.ellipse(cx,scanY,mw*(.27+.015*platformBlend),9+(mh*.036-9)*platformBlend,0,0,Math.PI*2);
+      ctx.strokeStyle='rgba(164,255,228,.8)'; ctx.lineWidth=1.3; ctx.stroke();
+    }
+
+  }
+
   // Canvas: point cloud → mesh → completed model.
   function frame(now) {
     requestAnimationFrame(frame);
@@ -408,56 +574,7 @@
         finish();
       }
     }
-    if (!modelPaused && !dragging) modelAngle -= 0.006;
-    const ctx = meshCtx;
-    ctx.clearRect(0, 0, mw, mh);
-    const scale = Math.min(mw / 4.2, mh / 6),
-      co = Math.cos(modelAngle),
-      si = Math.sin(modelAngle),
-      cx = mw * 0.55,
-      cy = mh * 0.49;
-    const points = verts.map((v) => ({
-      x: cx + (v.x * co + v.z * si) * scale,
-      y: cy + v.y * scale,
-      z: -v.x * si + v.z * co,
-    }));
-    ctx.beginPath();
-    ctx.ellipse(mw * 0.5, mh * 0.89, mw * 0.36, 20, 0, 0, Math.PI * 2);
-    ctx.strokeStyle = "#e3fff3";
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    const reveal = busy ? Math.min(1, fraction * 1.7) : 1,
-      threshold = mh * (0.03 + reveal * 0.9);
-    if (!busy || currentStage >= 2) {
-      for (const f of faces
-        .map((f) => ({ f, z: f.reduce((a, i) => a + points[i].z, 0) / 3 }))
-        .sort((a, b) => a.z - b.z)
-        .map((o) => o.f)) {
-        if (f.some((i) => points[i].y > threshold)) continue;
-        ctx.beginPath();
-        f.forEach((i, k) =>
-          k ? ctx.lineTo(points[i].x, points[i].y) : ctx.moveTo(points[i].x, points[i].y),
-        );
-        ctx.closePath();
-        ctx.fillStyle = "rgba(19,157,143,.43)";
-        ctx.fill();
-        ctx.strokeStyle = "#dcfff3b0";
-        ctx.lineWidth = 0.7;
-        ctx.stroke();
-      }
-    }
-    points.forEach((p) => {
-      if (p.y > threshold) return;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = "#e0fff1";
-      ctx.fill();
-    });
-    if (busy) {
-      const scanY = mh * 0.07 + ((fraction * 2) % 1) * mh * 0.8;
-      ctx.fillStyle = "#afffe577";
-      ctx.fillRect(mw * 0.18, scanY, mw * 0.65, 2);
-    }
+    drawReconstruction(now, fraction);
   }
   requestAnimationFrame(frame);
 
