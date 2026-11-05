@@ -26,22 +26,29 @@
     });
   });
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-  if (!("IntersectionObserver" in window) || reduced.matches) return;
-  const observer = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      }),
-    { threshold: 0.08 },
-  );
-  document.querySelectorAll(".about-section,.about-cta").forEach((section) => {
+  if (!("IntersectionObserver" in window)) return;
+  const sections = [...document.querySelectorAll(".about-section,.about-cta")];
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0, rootMargin: "0px 0px -55px 0px" });
+  const resetObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting && !(entry.target.contains(document.activeElement) && document.activeElement.matches(":focus-visible"))) {
+        entry.target.classList.remove("visible");
+      }
+    });
+  }, { threshold: 0, rootMargin: "45px 0px 45px 0px" });
+  sections.forEach((section) => {
     section.classList.add("about-reveal");
-    observer.observe(section);
+    if (reduced.matches) section.classList.add("visible");
+    else { observer.observe(section); resetObserver.observe(section); }
   });
-  document.addEventListener("focusin", (event) =>
-    event.target.closest(".about-reveal")?.classList.add("visible"),
-  );
+  reduced.addEventListener("change", () => {
+    observer.disconnect(); resetObserver.disconnect();
+    if (reduced.matches) sections.forEach(section => section.classList.add("visible"));
+    else sections.forEach(section => { observer.observe(section); resetObserver.observe(section); });
+  });
+  document.addEventListener("focusin", event => event.target.closest(".about-reveal")?.classList.add("visible"));
 })();

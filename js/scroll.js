@@ -1,4 +1,4 @@
-/** Reveal sections once as they scroll into view.
+/** Replay section reveals whenever they return to the viewport.
  * To animate another section, add its CSS selector to groups
  * or to the document.querySelectorAll list below.
  */
@@ -20,19 +20,22 @@
     element.dataset.reveal = style;
     element.style.setProperty("--reveal-delay", delay + "ms");
     if (reduced.matches) element.classList.add("is-visible");
-    else observer.observe(element);
+    else { observer.observe(element); resetObserver.observe(element); }
   }
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
+  // Reveal before the element is fully visible. Reset only after it leaves a
+  // larger viewport, so reversing direction near the edge cannot cause flicker.
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+    }
+  }, { threshold: 0, rootMargin: "0px 0px -55px 0px" });
+  const resetObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting && !(entry.target.contains(document.activeElement) && document.activeElement.matches(":focus-visible"))) {
+        entry.target.classList.remove("is-visible");
       }
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -28px 0px" },
-  );
+    }
+  }, { threshold: 0, rootMargin: "45px 0px 45px 0px" });
   for (const [selector, style] of groups)
     document.querySelectorAll(selector).forEach((el, i) => prepare(el, style, (i % 4) * 110));
   document
@@ -49,14 +52,17 @@
     for (let el = event.target; el && el !== document.body; el = el.parentElement) {
       if (staged.has(el)) {
         el.classList.add("is-visible");
-        observer.unobserve(el);
+        
       }
     }
   });
   reduced.addEventListener("change", () => {
     if (reduced.matches) {
       observer.disconnect();
+      resetObserver.disconnect();
       staged.forEach((el) => el.classList.add("is-visible"));
+    } else {
+      staged.forEach((el) => { observer.observe(el); resetObserver.observe(el); });
     }
   });
   // On-page links reveal their destination promptly, without delaying navigation.
@@ -66,7 +72,7 @@
     const target = document.getElementById(anchor.getAttribute("href").slice(1));
     if (target && staged.has(target)) {
       target.classList.add("is-visible");
-      observer.unobserve(target);
+      
     }
   });
 })();
