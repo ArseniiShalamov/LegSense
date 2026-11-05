@@ -1,0 +1,375 @@
+/* Shared light/dark theme. Keep original light styles; override surfaces in dark mode. */
+:root {
+  --theme-surface: #f3fafb;
+  --theme-text: #07343e;
+  --theme-border: #d2e3e8;
+  --theme-accent: #168f80;
+}
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid #168f802b;
+  border-radius: 50%;
+  color: #167f72;
+  background: #ffffffad;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.theme-toggle:hover {
+  background: #e1f4ed;
+  border-color: #168f8080;
+}
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+.theme-toggle:focus-visible {
+  outline: 3px solid #2ab49a;
+  outline-offset: 3px;
+}
+.theme-toggle svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  fill: none;
+}
+.theme-icon-sun {
+  display: none;
+}
+html[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+html[data-theme="dark"] {
+  --theme-surface: #0b1b24;
+  --theme-text: #e3f2f0;
+  --theme-border: #28434b;
+  --theme-accent: #6fddc0;
+  background: #0b1b24;
+}
+html[data-theme="dark"] body {
+  background: #0b1b24;
+  color: #e3f2f0;
+}
+html[data-theme="dark"] .page {
+  background:
+    radial-gradient(ellipse at 76% 20%, #17615a35, transparent 40%),
+    radial-gradient(ellipse at 100% 0%, #13545445, transparent 48%);
+}
+html[data-theme="dark"] header,
+html[data-theme="dark"] footer,
+html[data-theme="dark"] .about-section,
+html[data-theme="dark"] .stats {
+  border-color: #28434b;
+}
+html[data-theme="dark"] .logo,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] .photo-empty strong,
+html[data-theme="dark"] .measurement > label,
+html[data-theme="dark"] .stat b,
+html[data-theme="dark"] .result-metrics strong,
+html[data-theme="dark"] .history-summary strong {
+  color: #e3f2f0;
+}
+html[data-theme="dark"] h1 em {
+  color: #64d4ba;
+}
+html[data-theme="dark"] nav,
+html[data-theme="dark"] .language,
+html[data-theme="dark"] footer {
+  color: #b1cbc9;
+}
+html[data-theme="dark"] option {
+  background: #152d35;
+  color: #e3f2f0;
+}
+html[data-theme="dark"] .theme-toggle {
+  background: #18383e;
+  color: #85e0c6;
+  border-color: #335750;
+}
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #22494b;
+}
+html[data-theme="dark"] .eyebrow {
+  background: #163b3c;
+  color: #9be5d5;
+  border-color: #2b5852;
+}
+html[data-theme="dark"] .plus {
+  background: #245750;
+  color: #9be5d5;
+}
+html[data-theme="dark"] .pill {
+  background: linear-gradient(145deg, #239d87, #087465);
+  color: #fff;
+  border-color: #54baa565;
+  box-shadow: 0 12px 25px #0002;
+}
+html[data-theme="dark"] .pill:disabled {
+  background: #30484f;
+  color: #92a8ac;
+  border-color: #41585d;
+  box-shadow: none;
+}
+html[data-theme="dark"] .secondary,
+html[data-theme="dark"] .controls button,
+html[data-theme="dark"] .model-pause {
+  background: #17313a;
+  color: #d3ece7;
+  border-color: #345158;
+  box-shadow: 0 3px 8px #0002;
+}
+html[data-theme="dark"] .play {
+  background: #245047;
+  color: #b5f7e2;
+}
+html[data-theme="dark"] .intro,
+html[data-theme="dark"] .stat small,
+html[data-theme="dark"] .feature p,
+html[data-theme="dark"] .process-intro,
+html[data-theme="dark"] .angle-card p,
+html[data-theme="dark"] .scan-intro,
+html[data-theme="dark"] .scan-bar p,
+html[data-theme="dark"] .flow-top p,
+html[data-theme="dark"] .history-heading > p,
+html[data-theme="dark"] .about-lead,
+html[data-theme="dark"] .mission-layout p,
+html[data-theme="dark"] .journey-panel p,
+html[data-theme="dark"] .technology-grid p,
+html[data-theme="dark"] .status-list p,
+html[data-theme="dark"] .about-cta p {
+  color: #aac4c8;
+}
+html[data-theme="dark"] .float,
+html[data-theme="dark"] .features,
+html[data-theme="dark"] .angle-card,
+html[data-theme="dark"] .scan-bar,
+html[data-theme="dark"] .analysis-flow,
+html[data-theme="dark"] .history-panel,
+html[data-theme="dark"] #history-detail,
+html[data-theme="dark"] .journey-panel,
+html[data-theme="dark"] .technology-grid article,
+html[data-theme="dark"] .image-chip,
+html[data-theme="dark"] .visual-tag,
+html[data-theme="dark"] dialog {
+  background: #132c35ed;
+  color: #dcefeb;
+  border-color: #2b464d;
+  box-shadow: 0 15px 40px #0002;
+}
+html[data-theme="dark"] .float small {
+  color: #abc9cc;
+}
+html[data-theme="dark"] .icon,
+html[data-theme="dark"] .label,
+html[data-theme="dark"] .text-button,
+html[data-theme="dark"] .history-summary button,
+html[data-theme="dark"] .about-mobile-link {
+  color: #77d4bb;
+}
+html[data-theme="dark"] .feature .icon,
+html[data-theme="dark"] .tech-symbol {
+  background: #204a48;
+  color: #83e2c6;
+}
+html[data-theme="dark"] .feature,
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .history-summary,
+html[data-theme="dark"] .history-table td,
+html[data-theme="dark"] .history-table th,
+html[data-theme="dark"] .status-list article,
+html[data-theme="dark"] .result-heading {
+  border-color: #2b464d;
+}
+html[data-theme="dark"] .photo-tip,
+html[data-theme="dark"] .capture-checks,
+html[data-theme="dark"] .mission-note {
+  background: #163b3b;
+  color: #aed9cd;
+}
+html[data-theme="dark"] .photo-tip p,
+html[data-theme="dark"] .mission-note p {
+  color: #a9d5c9;
+}
+html[data-theme="dark"] .photo-picker {
+  background: #122a32;
+  border-color: #47736d;
+}
+html[data-theme="dark"] .photo-picker:hover,
+html[data-theme="dark"] .photo-slot.dragover .photo-picker {
+  background: #1a3d40;
+  border-color: #80d6be;
+}
+html[data-theme="dark"] .upload-plus {
+  background: #204a44;
+  color: #86dbc1;
+}
+html[data-theme="dark"] .photo-empty {
+  color: #abc7ca;
+}
+html[data-theme="dark"] .photo-preview {
+  background: #122a32;
+}
+html[data-theme="dark"] .photo-caption,
+html[data-theme="dark"] .remove-photo {
+  background: #18353df2;
+  color: #d3ece7;
+  border-color: #47635f;
+}
+html[data-theme="dark"] .length-field {
+  background: #10242b;
+  border-color: #3c5a60;
+  color: #dcefeb;
+}
+html[data-theme="dark"] .length-field input {
+  color: #e3f2f0;
+}
+html[data-theme="dark"] .length-field input::placeholder {
+  color: #8eaaad;
+}
+html[data-theme="dark"] .capture-checks p,
+html[data-theme="dark"] .demo-explanation,
+html[data-theme="dark"] .local-note,
+html[data-theme="dark"] .result-heading > span,
+html[data-theme="dark"] .history-summary > span,
+html[data-theme="dark"] .history-summary b,
+html[data-theme="dark"] .about-visual figcaption,
+html[data-theme="dark"] .journey-panel .panel-detail {
+  color: #91b0b6;
+}
+html[data-theme="dark"] .photo-error {
+  color: #e9b29d;
+}
+html[data-theme="dark"] .scan-status,
+html[data-theme="dark"] #stage-description,
+html[data-theme="dark"] .history-summary small {
+  color: #89d6bd;
+}
+html[data-theme="dark"] .result-metrics > div,
+html[data-theme="dark"] .assessment,
+html[data-theme="dark"] .track-art {
+  background: #19363c;
+  border-color: #33535a;
+}
+html[data-theme="dark"] .result-metrics small,
+html[data-theme="dark"] .assessment p {
+  color: #b0cbd0;
+}
+html[data-theme="dark"] .reconstruction {
+  background: radial-gradient(ellipse at center, #21594f, #122a34);
+}
+html[data-theme="dark"] #analysis-stages li {
+  color: #99b5ba;
+}
+html[data-theme="dark"] #analysis-stages li.active {
+  color: #8ae3c8;
+}
+html[data-theme="dark"] #analysis-stages li:before {
+  background: #1c3940;
+  border-color: #3e5e5d;
+}
+html[data-theme="dark"] #analysis-stages li.complete:before {
+  background: #24564a;
+  color: #a3f0d7;
+}
+html[data-theme="dark"] progress::-webkit-progress-bar {
+  background: #29464c;
+}
+html[data-theme="dark"] .history-chart text {
+  fill: #9db9be;
+}
+html[data-theme="dark"] .history-table th {
+  color: #8adcc0;
+}
+html[data-theme="dark"] .history-empty {
+  color: #a3c1c2;
+}
+html[data-theme="dark"] .tech-story,
+html[data-theme="dark"] .clinical-note {
+  background: linear-gradient(120deg, #153438, #19484a);
+  border: 1px solid #2b5353;
+}
+html[data-theme="dark"] .tech-copy > p,
+html[data-theme="dark"] .clinical-note p {
+  color: #bed7d5;
+}
+html[data-theme="dark"] .journey-tabs {
+  background: #10262f;
+  border-color: #345158;
+}
+html[data-theme="dark"] .journey-tabs button {
+  color: #b1cecb;
+}
+html[data-theme="dark"] .journey-tabs button[aria-selected="true"] {
+  background: #218d7b;
+  color: #fff;
+}
+html[data-theme="dark"] .mission-layout .large-copy {
+  color: #d4e9e7;
+}
+html[data-theme="dark"] .technology-grid small,
+html[data-theme="dark"] .image-chip span,
+html[data-theme="dark"] .visual-tag {
+  color: #97d9c8;
+}
+html[data-theme="dark"] .about-leg,
+html[data-theme="dark"] .capture-art img,
+html[data-theme="dark"] .mesh-art img,
+html[data-theme="dark"] .measure-art img,
+html[data-theme="dark"] .angle-card > img,
+html[data-theme="dark"] .image-chip img {
+  filter: brightness(0.78) saturate(1.1);
+}
+html[data-theme="dark"] .angle-number {
+  background: #132c35;
+  color: #c4dbd7;
+}
+@media (max-width: 720px) {
+  .theme-toggle {
+    width: 33px;
+    height: 33px;
+  }
+  header .actions {
+    gap: 8px;
+  }
+  .about-mobile-link {
+    max-width: 60px;
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  .logo {
+    font-size: 21px;
+  }
+  .language {
+    max-width: 90px;
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle {
+    transition: none;
+  }
+}
+
+@media (max-width: 400px) {
+  header {
+    padding-inline: 18px;
+  }
+  .logo {
+    font-size: 20px;
+    gap: 7px;
+  }
+}
